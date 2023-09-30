@@ -21,13 +21,16 @@ void Lcd::casesOutput(OutputTrash output) const {
     switch (output)
     {
         case OutputTrash::COMPOST:
-        lcd_.print("Composte");
+        lcd_.print("Compostable");
         break;
         case OutputTrash::RECYCLABLE:
         lcd_.print("Recyclable");
         break;
         case OutputTrash::JUNK:
-        lcd_.print("Junk");
-            break;
+        lcd_.print("Jetable");
+        break;
+        case OutputTrash::EMPTY:
+        lcd_.clear();
+        break;
     }
 }
