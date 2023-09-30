@@ -1,5 +1,6 @@
 #pragma once
 #include <LiquidCrystal.h>
+#include <string.h>
 
 enum class OutputTrash {
     COMPOST,
@@ -14,6 +15,7 @@ class Lcd {
         void setup();
         void casesOutput(OutputTrash output) const;
     private:
+        static constexpr const char* MSG = "Ce dechet est : ";
         LiquidCrystal lcd_;
 };
 
