@@ -35,19 +35,16 @@ void setup() {
   SPI.begin();         // Init SPI bus
   mfrc522.PCD_Init();  // Init MFRC522 card
   myservo.attach(7);
-  
   for (byte i = 0; i < 6; i++) {
     key.keyByte[i] = 0xFF;
   }
   pinMode(8, OUTPUT);
-  myservo.write(-45);
 }
 
 void loop() {
   if (isRecyclable > 0){
     if (isRecyclable == NB_CYCLES){
       lcd.casesOutput(OutputTrash::RECYCLABLE);
-      cycle = 30;
     }
 
     digitalWrite(LED_RECYCLE, HIGH);
@@ -57,6 +54,7 @@ void loop() {
   else if (isTrash > 0){
     if (isTrash == NB_CYCLES){
       lcd.casesOutput(OutputTrash::JUNK);
+      cycle = 30;
     }
     digitalWrite(LED_RECYCLE, LOW);
     digitalWrite(LED_TRASH, HIGH);
@@ -92,18 +90,24 @@ void loop() {
     digitalWrite(LED_RECYCLE, HIGH);
   }
   Serial.println();
-  //openTrash();
+  openTrash();
   
   delay(15);
 }
 
 void openTrash(){
-  myservo.write(45);
   if (cycle == 0){
-    cycle = 30;
+    myservo.write(45);
   }
-  // if (cycle % 10 == 0){
-  //   myservo.write(cycle);
-  //   cycle++;
-  // }
+  if (cycle >= 15){
+    myservo.write(45 - cycle * 45 / 15);
+  }
+  else {
+    myservo.write(cycle * 45 / 15);
+  }
+  cycle--;
+  if (cycle % 10 == 0){
+    myservo.write(cycle);
+    cycle++;
+  }
 }
