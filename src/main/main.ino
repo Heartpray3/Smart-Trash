@@ -39,6 +39,7 @@ void setup() {
     key.keyByte[i] = 0xFF;
   }
   pinMode(8, OUTPUT);
+  pinMode(A5, OUTPUT);
 }
 
 void loop() {
@@ -46,14 +47,14 @@ void loop() {
     if (isRecyclable == NB_CYCLES){
       lcd.casesOutput(OutputTrash::RECYCLABLE);
       digitalWrite(LED_RECYCLE, HIGH);
-    digitalWrite(LED_TRASH, LOW);
+      digitalWrite(LED_TRASH, LOW);
 
       for (pos = 0; pos <= 90; pos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    myservo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
-  }
-      delay(1000); 
+        // in steps of 1 degree
+        myservo.write(pos);              // tell servo to go to position in variable 'pos'
+        delay(15);                       // waits 15ms for the servo to reach the position
+      }
+      delay(1000);
     }
 
     
@@ -96,7 +97,9 @@ void loop() {
     isTrash = NB_CYCLES;
   }
   else{
-    digitalWrite(LED_RECYCLE, HIGH);
+    digitalWrite(A5, HIGH);
+    delay(1000);
+    digitalWrite(A5, LOW);
   }
   Serial.println();
   
