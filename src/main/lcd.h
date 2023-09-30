@@ -5,7 +5,8 @@
 enum class OutputTrash {
     COMPOST,
     RECYCLABLE,
-    JUNK
+    JUNK, 
+    EMPTY
 };
 
 class Lcd {
