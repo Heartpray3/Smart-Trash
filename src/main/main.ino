@@ -98,8 +98,10 @@ void loop() {
   }
   else{
     digitalWrite(A5, HIGH);
+    lcd.casesOutput(OutputTrash::COMPOST);
     delay(1000);
     digitalWrite(A5, LOW);
+    lcd.casesOutput(OutputTrash::EMPTY);
   }
   Serial.println();
   
