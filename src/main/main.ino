@@ -104,7 +104,6 @@ void loop() {
     lcd.casesOutput(OutputTrash::EMPTY);
   }
   Serial.println();
-  
   delay(15);
 }
 
