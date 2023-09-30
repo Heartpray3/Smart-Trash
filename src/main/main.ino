@@ -1,6 +1,7 @@
 #include "lcd.h"
 #include <SPI.h>
 #include <MFRC522.h>
+#include <Servo.h>
 
 #define RST_PIN     9     // Configurable, see typical pin layout above
 #define SS_PIN      10    // Configurable, see typical pin layout above
@@ -10,13 +11,18 @@
 
 #define LED_RECYCLE 6
 #define LED_TRASH   8
-#define NB_CYCLES   10
+#define NB_CYCLES   30
+
+int cycle = 0;
 
 //Method definitions 
 void blink(int ledPos);
 
+Servo myservo;
+
 int isRecyclable = 0;
 int isTrash = 0;
+int pos = 0;
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
@@ -28,18 +34,22 @@ Lcd lcd(0,1,2,3,4,5);
 void setup() {
   SPI.begin();         // Init SPI bus
   mfrc522.PCD_Init();  // Init MFRC522 card
+  myservo.attach(7);
   
   for (byte i = 0; i < 6; i++) {
     key.keyByte[i] = 0xFF;
   }
   pinMode(8, OUTPUT);
+  myservo.write(-45);
 }
 
 void loop() {
   if (isRecyclable > 0){
     if (isRecyclable == NB_CYCLES){
       lcd.casesOutput(OutputTrash::RECYCLABLE);
+      cycle = 30;
     }
+
     digitalWrite(LED_RECYCLE, HIGH);
     digitalWrite(LED_TRASH, LOW);
     isRecyclable--;
@@ -78,7 +88,22 @@ void loop() {
     isRecyclable = 0;
     isTrash = NB_CYCLES;
   }
+  else{
+    digitalWrite(LED_RECYCLE, HIGH);
+  }
   Serial.println();
+  //openTrash();
   
-  delay(200);
+  delay(15);
+}
+
+void openTrash(){
+  myservo.write(45);
+  if (cycle == 0){
+    cycle = 30;
+  }
+  // if (cycle % 10 == 0){
+  //   myservo.write(cycle);
+  //   cycle++;
+  // }
 }
