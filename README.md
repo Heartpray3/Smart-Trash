@@ -1,4 +1,4 @@
-# **Détecteur de Tri des Déchets par RFID**
+# **Smart Trash**
 
 ## **Description**
 Ce projet a été réalisé dans le cadre de la première édition du hackathon **StarHack**, une compétition de robotique intensive de 8 heures visant à concevoir et présenter l'idée la plus innovante sur le thème du développement durable, avec une équipe de 6 membres. Nous avons remporté la première place 🏆 grâce à notre idée représenté par notre prototype. L'objectif du projet était de développer un dispositif capable de détecter automatiquement le type de déchet (compostable, recyclable ou jetable) à l’aide de la technologie RFID. Le dispositif affiche ensuite les informations sur un écran LCD, allume une DEL correspondante et simule une action mécanique de tri via un servomoteur.
